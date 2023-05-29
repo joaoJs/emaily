@@ -1,18 +1,24 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { BrowserRouter, Route } from 'react-router-dom' 
+import Header from './Header'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 
-const Header = () => <h2>Header</h2>
 const Dashboard = () => <h2>Dashboard</h2>
 const SurveyNew = () => <h2>SurveyNew</h2>
 const Landing = () => <h2>Landing</h2>
 
 
-function App() {
+function App(props) {
+    useEffect(() => {
+        props.fetchUser()
+    }, [])
+
     return (
-        <div>
+        <div className="container">
             <BrowserRouter>
                 <div>
-                    <Header />
+                    <Header name="Emaily" />
                     <Route exact path="/" component={Landing}></Route>
                     <Route exact path="/surveys" component={Dashboard}></Route>
                     <Route path="/surveys/new" component={SurveyNew}></Route>
@@ -22,4 +28,4 @@ function App() {
     )
 }
 
-export default App;
+export default connect(null, actions)(App);
